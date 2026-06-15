@@ -16,6 +16,10 @@ h1,h2,h3,.display{font-family:'Fredoka',system-ui,sans-serif}
 .logo{font-family:'Fredoka';font-weight:700;font-size:24px;color:var(--green);cursor:pointer;display:flex;align-items:center;gap:7px;line-height:1;text-transform:lowercase}
 .logo b{color:var(--green);font-weight:700}.logo .dot{width:9px;height:9px;border-radius:50%;background:var(--mustard);display:inline-block}
 .hero{padding:26px 0 8px}.hero h1{font-size:30px;margin:0 0 4px;text-transform:lowercase}.hero p{margin:0;color:var(--muted);font-weight:600}
+.hero-sub{margin:2px 0 0;color:var(--muted);font-weight:700;font-size:13.5px}
+.hero-steps{list-style:none;margin:9px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;color:var(--muted);font-weight:600;font-size:13.5px}
+.hero-steps li{display:flex;align-items:center;gap:8px}
+.hero-steps .n{flex:0 0 auto;width:20px;height:20px;border-radius:50%;background:var(--soft);color:var(--green);font-family:'Fredoka';font-weight:700;font-size:12px;display:inline-flex;align-items:center;justify-content:center}
 .pill-btn{font-family:'Nunito';font-weight:800;border:none;border-radius:999px;padding:9px 16px;cursor:pointer;font-size:14px;transition:transform .08s,filter .15s}
 .pill-btn:active{transform:translateY(1px)}
 .btn-coral{background:var(--coral);color:#fff}.btn-coral:hover{filter:brightness(1.04)}
@@ -315,7 +319,7 @@ function listHTML(){
   const avail = ITEMS.filter(i=>!i.sold);
   const sold = ITEMS.filter(i=>i.sold);
   if(!ITEMS.length) return '<div class="center-note"><span class="em">📦</span>nada por aqui ainda.</div>';
-  let h = '<div class="hero"><h1>desapega aí 👋</h1><p>coisas boas de casa procurando dono novo. dá teu lance pelo whatsapp.</p></div>';
+  let h = '<div class="hero"><h1>dê seu lance 👋</h1><p class="hero-sub">como dar seu lance — é rapidinho:</p><ol class="hero-steps"><li><span class="n">1</span> escolha o objeto que você curtiu</li><li><span class="n">2</span> toque em "dar lance" e ajuste quanto quer pagar</li><li><span class="n">3</span> envie no whatsapp — eu te respondo pra combinar a entrega</li></ol></div>';
   h += '<div class="grid">'+avail.map(cardHTML).join('')+'</div>';
   if(sold.length) h += '<h2 class="section-h">já saíram</h2><div class="grid">'+sold.map(cardHTML).join('')+'</div>';
   return h;
