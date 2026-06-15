@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editores
+.vscode/
+.idea/
+*.swp
+
+# Logs / temporários
+*.log
+.cache/
+.memoria-do-dia-*.md
