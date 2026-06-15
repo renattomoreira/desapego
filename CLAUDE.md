@@ -8,21 +8,22 @@
 
 - **Tipo:** Site estático de uma página (HTML + CSS + JS embutidos num arquivo só).
 - **Arquivo principal:** `docs/index.html` — contém o estilo, a lógica e as fotos (base64 inline).
-  Fica em `docs/` porque essa é a pasta pública servida pelo GitHub Pages e pelo Cloudflare
-  (assim nada de interno é exposto). **Nunca mover de volta pra raiz** sem reconfigurar os dois hosts.
+  Fica em `docs/` porque essa é a pasta pública servida pelo Cloudflare (pasta limpa só com o
+  index → nada de interno é exposto). **Nunca mover de volta pra raiz** sem reconfigurar o `wrangler.jsonc`.
 - **Como atualizar:** editar a lista `ITEMS` dentro do `<script>` em `docs/index.html`. As
   instruções completas estão no comentário "COMO ATUALIZAR ESTE SITE" no topo do script.
 - **Contato:** `OWNER = { name: "Renato", whatsapp: "5519996614321" }` (55 + DDD 19 + número).
-- **Hospedagem:** GitHub Pages (`/docs`) + Cloudflare Workers (`wrangler.jsonc`, assets=`./docs`),
-  ambos sobre o repo público. O link é compartilhado com compradores para darem lances via WhatsApp.
+- **Hospedagem:** **Cloudflare Workers** (host único) — `wrangler.jsonc`, assets=`./docs`,
+  URL `desapego.renattowolf.workers.dev`. (GitHub Pages foi desativado em 2026-06-14.)
+  O link é compartilhado com compradores para darem lances via WhatsApp.
 
 ### Tarefas comuns
 - **Marcar item como vendido:** trocar `"sold": false` por `"sold": true` no item.
 - **Adicionar item:** copiar um bloco `{ ... }` inteiro dentro de `ITEMS` e ajustar
   `title`, `description`, `pricePaid` (preço "de"), `askingPrice` (preço "por"),
   `refs` (links de referência) e `photos` (imagens em base64 / data URL).
-- **Publicar mudança:** `git add docs/index.html && git commit -m "..." && git push` —
-  GitHub Pages e Cloudflare atualizam sozinhos em ~1 minuto.
+- **Publicar mudança:** `npx wrangler deploy` (publica no Cloudflare em segundos), depois
+  `git add docs/index.html && git commit -m "..." && git push` pra versionar.
 
 ---
 

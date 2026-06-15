@@ -5,11 +5,11 @@ Cada item mostra preço "de / por", fotos e um botão **"dar um lance"** que abr
 WhatsApp já com a mensagem pronta. **Não tem banco de dados** — está tudo dentro do
 `docs/index.html` (HTML, CSS, JavaScript e fotos em base64).
 
-> A página fica em `docs/index.html` porque essa é a pasta pública servida tanto
-> pelo **GitHub Pages** quanto pelo **Cloudflare Workers** — assim nada de interno
-> (memórias, CLAUDE.md) é exposto no site.
+> A página fica em `docs/index.html` porque essa é a pasta pública servida pelo
+> **Cloudflare Workers** (host único) — uma pasta limpa só com o `index.html`, assim
+> nada de interno (memórias, CLAUDE.md) é exposto no site.
 
-🔗 **Site no ar:** https://renattomoreira.github.io/desapego/
+🔗 **Site no ar:** https://desapego.renattowolf.workers.dev/  (Cloudflare Workers)
 📦 **Repositório:** https://github.com/renattomoreira/desapego
 📱 **Contato dos lances:** WhatsApp `+55 19 99661-4321` (Renato)
 
@@ -45,12 +45,15 @@ Tudo é editado no `docs/index.html`, na lista `ITEMS` dentro do `<script>` (tem
 ### Publicar a mudança
 
 ```bash
-git add docs/index.html
-git commit -m "atualiza itens do desapego"
-git push
+# 1) publica no Cloudflare (jeito garantido)
+npx wrangler deploy
+
+# 2) versiona a mudança no GitHub
+git add docs/index.html && git commit -m "atualiza itens do desapego" && git push
 ```
 
-GitHub Pages e Cloudflare reconstroem sozinhos em ~1 minuto e o link público fica atualizado.
+O `wrangler deploy` atualiza o site em segundos. (Se o projeto estiver conectado ao
+GitHub no painel do Cloudflare, o `git push` também dispara um rebuild automático.)
 
 ---
 
@@ -74,7 +77,7 @@ GitHub Pages e Cloudflare reconstroem sozinhos em ~1 minuto e o link público fi
 
 - **HTML + CSS + JS** num único arquivo (`docs/index.html`).
 - Fontes via Google Fonts (Fredoka + Nunito).
-- Hospedagem: **GitHub Pages** + **Cloudflare Workers** (assets estáticos), ambos servindo `docs/`.
+- Hospedagem: **Cloudflare Workers** (assets estáticos), servindo `docs/`.
 - Zero dependências, zero build. É só abrir o arquivo ou acessar o link.
 
 ## Rodar localmente
