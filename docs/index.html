@@ -88,9 +88,6 @@ body.has-bazar{padding-top:44px}
 .tag .now{font-family:'Mulish';font-weight:700;color:var(--ink);font-size:24px;line-height:1}
 .tag .lbl{color:var(--muted);font-weight:700;font-size:12px}
 .desc{color:var(--muted);font-weight:500;line-height:1.5;margin-top:12px}
-.refs{margin:16px 0}.refs h4{font-family:'Mulish';font-weight:600;font-size:14px;margin:0 0 8px}
-.ref-link{display:flex;gap:8px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:6px;padding:9px 12px;margin-bottom:7px;text-decoration:none;color:var(--green);font-weight:700;font-size:13.5px;word-break:break-all}
-.ref-link:hover{border-color:var(--green)}
 .bidbox{background:#fff;border:2px solid var(--line);border-radius:10px;padding:18px;box-shadow:0 8px 22px rgba(19,107,79,.06)}
 .bidbox.sold{border-color:#5b6b7a;background:#f3f5f7}
 .cur{display:flex;align-items:baseline;gap:8px;margin-bottom:4px}
@@ -482,7 +479,6 @@ function detailHTML(it){
   const thumbs = photos.length>1 ? '<div class="thumbs">'+photos.map((p,i)=>'<button class="'+(i===0?'on':'')+'" onclick="setMain('+i+',this)"><img src="'+p+'" alt="foto '+(i+1)+'" onerror="this.onerror=null;this.src=IMG_FALLBACK"></button>').join('')+'</div>' : '';
   const from = it.pricePaid>0 ? '<span class="from">'+fmt(it.pricePaid)+'</span>' : '';
   const desc = it.description ? '<p class="desc">'+esc(it.description).replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>')+'</p>' : '';
-  const refs = (it.refs&&it.refs.length) ? '<div class="refs"><h4>achei parecido por aí</h4>'+it.refs.map(r=>'<a class="ref-link" href="'+esc(r)+'" target="_blank" rel="noreferrer">🔗 '+esc(r)+'</a>').join('')+'</div>' : '';
   let box;
   if(it.sold){
     box = '<div class="bidbox sold"><div class="sold-card"><span class="em">✅</span><h3 style="margin:4px 0">já vendido</h3><p style="color:var(--muted);font-weight:800;margin:0">esta peça já encontrou dono novo.</p><div class="sold-tag">indisponível</div></div></div>';
@@ -507,7 +503,7 @@ function detailHTML(it){
     + '<div class="dcols"><div class="gallery"><div class="main">'+main+'</div>'+thumbs+'</div>'
     + '<div><h1 class="dttl">'+esc(it.title)+'</h1>'
     + '<div class="tag">'+from+'<span class="now">'+fmt(it.askingPrice)+'</span><span class="lbl">valor pedido</span></div>'
-    + desc + refs + box + '</div></div></div>';
+    + desc + box + '</div></div></div>';
 }
 function setMain(i, el){
   const it = ITEMS.find(x=>x.id===currentId); if(!it) return;
