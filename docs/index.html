@@ -458,7 +458,10 @@ function listHTML(){
   const topDeals = avail.filter(i=>!i.reserved && discPct(i)>=TOP_DEAL_PCT && i.pricePaid>0)
     .sort((a,b)=>(discPct(b)-discPct(a)) || (saveOf(b)-saveOf(a))).slice(0,4);
   const topIds = new Set(topDeals.map(i=>i.id));
-  const rest = avail.filter(i=>!topIds.has(i.id));
+  const rest = avail.filter(i=>!topIds.has(i.id)).sort((a,b)=>{
+    if((!!a.reserved)!==(!!b.reserved)) return a.reserved?1:-1;  // pré-vendidos pro fim
+    return a.askingPrice-b.askingPrice;                          // menor preço primeiro
+  });
   let h = '<div class="block hero"><h1>dê seu lance 👋</h1>'
     + '<p class="hero-sub" style="color:#e11d2a;font-weight:700">'+SALE_REASON+'</p>'
     + '<p class="hero-sub">aqui é peça única: quem faz a melhor oferta leva. como dar o teu lance:</p>'
