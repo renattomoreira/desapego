@@ -1,0 +1,13 @@
+{
+  // Config do Cloudflare Workers para servir o site como ASSETS ESTÁTICOS.
+  // Não há "build" de verdade: é um arquivo HTML único. O Worker só serve a pasta.
+  "name": "desapego",
+  "compatibility_date": "2025-01-01",
+  "assets": {
+    // Serve a raiz do projeto. O que NÃO deve ser servido (CLAUDE.md, memórias,
+    // este config) está listado em .assetsignore.
+    "directory": ".",
+    // Se a rota não existir, cai no index.html (página única).
+    "not_found_handling": "single-page-application"
+  }
+}
