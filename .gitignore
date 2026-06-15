@@ -16,3 +16,6 @@
 # Cloudflare wrangler (cache local / build)
 .wrangler/
 node_modules/
+
+# Artefatos de teste de browser (Playwright MCP)
+.playwright-mcp/
