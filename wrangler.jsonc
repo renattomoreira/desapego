@@ -4,9 +4,9 @@
   "name": "desapego",
   "compatibility_date": "2025-01-01",
   "assets": {
-    // Serve a raiz do projeto. O que NÃO deve ser servido (CLAUDE.md, memórias,
-    // este config) está listado em .assetsignore.
-    "directory": ".",
+    // Serve SÓ a pasta docs/ (que contém apenas o index.html). Assim nada de
+    // interno (CLAUDE.md, memórias, .git) é exposto. Mesma pasta serve o GitHub Pages.
+    "directory": "./docs",
     // Se a rota não existir, cai no index.html (página única).
     "not_found_handling": "single-page-application"
   }

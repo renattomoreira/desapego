@@ -1,9 +1,0 @@
-# Arquivos internos do projeto — NÃO servir pelo site público (Cloudflare Workers Assets).
-# Padrões estilo .gitignore. O site público deve expor só o index.html.
-*.md
-.gitignore
-.assetsignore
-wrangler.jsonc
-.git
-.wrangler
-node_modules

@@ -3,7 +3,11 @@
 Página de uma página só (single-file) para vender móveis e eletros usados.
 Cada item mostra preço "de / por", fotos e um botão **"dar um lance"** que abre o
 WhatsApp já com a mensagem pronta. **Não tem banco de dados** — está tudo dentro do
-`index.html` (HTML, CSS, JavaScript e fotos em base64).
+`docs/index.html` (HTML, CSS, JavaScript e fotos em base64).
+
+> A página fica em `docs/index.html` porque essa é a pasta pública servida tanto
+> pelo **GitHub Pages** quanto pelo **Cloudflare Workers** — assim nada de interno
+> (memórias, CLAUDE.md) é exposto no site.
 
 🔗 **Site no ar:** https://renattomoreira.github.io/desapego/
 📦 **Repositório:** https://github.com/renattomoreira/desapego
@@ -13,7 +17,7 @@ WhatsApp já com a mensagem pronta. **Não tem banco de dados** — está tudo d
 
 ## Como atualizar o site
 
-Tudo é editado no `index.html`, na lista `ITEMS` dentro do `<script>` (tem um comentário
+Tudo é editado no `docs/index.html`, na lista `ITEMS` dentro do `<script>` (tem um comentário
 "COMO ATUALIZAR ESTE SITE" explicando lá no topo). Cada item é assim:
 
 ```js
@@ -41,12 +45,12 @@ Tudo é editado no `index.html`, na lista `ITEMS` dentro do `<script>` (tem um c
 ### Publicar a mudança
 
 ```bash
-git add index.html
+git add docs/index.html
 git commit -m "atualiza itens do desapego"
 git push
 ```
 
-O GitHub Pages reconstrói sozinho em ~1 minuto e o link público fica atualizado.
+GitHub Pages e Cloudflare reconstroem sozinhos em ~1 minuto e o link público fica atualizado.
 
 ---
 
@@ -68,16 +72,26 @@ O GitHub Pages reconstrói sozinho em ~1 minuto e o link público fica atualizad
 
 ## Stack
 
-- **HTML + CSS + JS** num único arquivo (`index.html`).
+- **HTML + CSS + JS** num único arquivo (`docs/index.html`).
 - Fontes via Google Fonts (Fredoka + Nunito).
-- Hospedagem: **GitHub Pages** (repo público).
+- Hospedagem: **GitHub Pages** + **Cloudflare Workers** (assets estáticos), ambos servindo `docs/`.
 - Zero dependências, zero build. É só abrir o arquivo ou acessar o link.
 
 ## Rodar localmente
 
-Basta abrir o `index.html` no navegador (duplo clique), ou servir a pasta:
+Basta abrir o `docs/index.html` no navegador (duplo clique), ou servir a pasta:
 
 ```bash
-python3 -m http.server 8000
+cd docs && python3 -m http.server 8000
 # depois acesse http://localhost:8000
+```
+
+## Deploy no Cloudflare (manual, se precisar)
+
+O `wrangler.jsonc` já está configurado (serve `docs/` como assets estáticos). Para
+publicar direto do terminal (sem depender do build automático):
+
+```bash
+npx wrangler login      # só na 1a vez / quando o token expirar
+npx wrangler deploy     # publica em https://desapego.renattowolf.workers.dev/
 ```

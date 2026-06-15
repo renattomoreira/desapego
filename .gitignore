@@ -12,3 +12,7 @@
 *.log
 .cache/
 .memoria-do-dia-*.md
+
+# Cloudflare wrangler (cache local / build)
+.wrangler/
+node_modules/
