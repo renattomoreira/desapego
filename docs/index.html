@@ -54,7 +54,7 @@ h1,h2,h3,.display{font-family:'Mulish',-apple-system,BlinkMacSystemFont,'Segoe U
 .card.is-sold .disc{background:#ececf0;color:#a8a2b2}
 .card.is-reserved{border-color:var(--mustard);box-shadow:0 0 0 1px var(--mustard) inset}
 .reserved-note{background:#fff7e0;border:1.5px solid var(--mustard);color:#7a5b00;font-weight:700;border-radius:6px;padding:11px 13px;margin-bottom:12px;font-size:14px;line-height:1.35}
-.disc-badge{position:absolute;top:10px;right:10px;background:var(--wine);color:#fff;font-family:'Mulish';font-weight:700;font-size:12px;padding:4px 10px;border-radius:6px;box-shadow:0 2px 6px rgba(194,18,58,.28);line-height:1.3;z-index:2}
+.disc-badge{position:absolute;top:10px;right:10px;background:var(--wine);color:#fff;font-family:'Mulish';font-weight:800;font-size:12px;padding:4px 10px;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.22);line-height:1.3;z-index:2;text-shadow:0 1px 1px rgba(0,0,0,.45)}
 .unit-badge{position:absolute;bottom:10px;left:10px;background:#ffffff;color:#555555;font-family:'Mulish';font-weight:700;font-size:11px;padding:3px 9px;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,.18);line-height:1.3;z-index:2}
 .save-line{display:block;margin-top:4px;color:var(--wine);font-family:'Mulish';font-weight:700;font-size:12.5px;line-height:1.3}
 .interest-chip{display:inline-flex;align-items:center;gap:5px;margin-top:8px;background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:4px 10px;font-family:'Mulish';font-weight:800;font-size:11.5px;color:var(--muted)}
@@ -386,7 +386,7 @@ const round2 = n => Math.round((Number(n)||0)*100)/100;
 const floorOf = it => round2(it.askingPrice*0.8);
 const discPct = it => (it.pricePaid>it.askingPrice ? Math.round((it.pricePaid-it.askingPrice)/it.pricePaid*100) : 0);
 const saveOf = it => (it.pricePaid>it.askingPrice ? it.pricePaid-it.askingPrice : 0);
-const heatColor = p => 'hsl('+Math.round(240*(1-Math.max(0,Math.min(100,p))/100))+',80%,42%)'; // escala de calor: 0%=azul -> 100%=vermelho
+const heatColor = p => 'hsl('+Math.round(240*(1-Math.min(Math.max(p,0),80)/80))+',85%,42%)'; // escala de calor: 0%=azul -> 80%+=vermelho vibrante
 const waLink = text => 'https://wa.me/'+OWNER.whatsapp+'?text='+encodeURIComponent(text);
 const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const WA_ICON = '<svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M16.04 4C9.93 4 4.98 8.95 4.98 15.06c0 2.13.6 4.12 1.64 5.81L4.5 28l7.3-2.05a11 11 0 0 0 4.24.85h.01c6.1 0 11.05-4.95 11.06-11.06A11 11 0 0 0 16.04 4Zm6.48 15.79c-.27.77-1.58 1.47-2.18 1.53-.58.06-1.12.27-3.78-.79-3.2-1.26-5.23-4.5-5.39-4.71-.16-.21-1.28-1.7-1.28-3.25 0-1.55.81-2.31 1.1-2.62.27-.3.59-.38.79-.38h.57c.18 0 .43-.07.67.51.27.66.91 2.27.99 2.43.08.16.13.36.03.57-.1.21-.16.34-.3.52-.16.16-.33.37-.47.5-.16.16-.33.33-.14.65.18.32.81 1.34 1.74 2.17 1.2 1.07 2.21 1.4 2.53 1.56.32.16.5.13.69-.08.18-.21.79-.92.99-1.24.21-.32.42-.27.71-.16.29.11 1.84.87 2.16 1.03.32.16.53.24.61.37.08.13.08.77-.19 1.54Z"/></svg>';
@@ -430,7 +430,7 @@ function cardHTML(it){
   const reserved = !sold && !!it.reserved;
   const badge = sold ? '<span class="badge b-sold">vendido</span>' : (reserved ? '<span class="badge b-reserved">pré-vendido</span>' : '');
   const pct = discPct(it);
-  const discBadge = (pct>0 && !sold) ? '<span class="disc-badge" style="background:'+heatColor(pct)+'">−'+pct+'%</span>' : '';
+  const discBadge = (pct>0 && !sold) ? '<span class="disc-badge" style="background:'+heatColor(pct)+'">🔥 −'+pct+'%</span>' : '';
   const qty = Number(it.qty)||1;
   const unitBadge = !sold ? (qty>1 ? '<span class="unit-badge">📦 '+qty+' peças</span>' : '<span class="unit-badge">✦ peça única</span>') : '';
   const img = it.photos && it.photos[0] ? '<img src="'+it.photos[0]+'" alt="'+esc(it.title)+'" onerror="this.onerror=null;this.src=IMG_FALLBACK">' : '<div class="empty">🛋️</div>';
@@ -495,7 +495,7 @@ function detailHTML(it){
     box = resv + '<div class="bidbox">'
       + '<div class="valuebox">'
       + (it.pricePaid>0 ? '<div class="real">valor real do produto: <s>'+fmt(it.pricePaid)+'</s></div>' : '')
-      + '<div class="ask"><span class="v">'+fmt(it.askingPrice)+'</span>'+(pct>0?'<span class="pct" style="color:'+heatColor(pct)+'">−'+pct+'%</span>':'')+'</div>'
+      + '<div class="ask"><span class="v">'+fmt(it.askingPrice)+'</span>'+(pct>0?'<span class="pct" style="color:'+heatColor(pct)+'">🔥 −'+pct+'%</span>':'')+'</div>'
       + (save>=1000 ? '<div class="save-line">você economiza '+fmt(save)+'</div>' : '')
       + '</div>'
       + '<p class="hint">'+((Number(it.qty)||1)>1?'vai o pacote completo com '+(Number(it.qty)||1)+' peças — é desapego de casa, então quando sair, saiu.':'só tem essa. é desapego de casa, então quando sair, saiu.')+'</p>'
