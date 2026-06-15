@@ -169,7 +169,7 @@ const ITEMS = [
   {
     "id": "mesa-enlace",
     "title": "Mesa de Jantar Artzzi — vidro preto (até 8 lugares)",
-    "description": "Mesa de jantar da Artzzi, modelo Enlace, para até 8 lugares. Tampo de vidro preto sobre estrutura de ferro com detalhe dourado — uma peça sofisticada que vira o centro da sala. Mede 2,40 x 1,20 m (altura 0,78 m). As cadeiras são vendidas à parte.",
+    "description": "Mesa de jantar da **Artzzi**, modelo Enlace, para até 8 lugares. Tampo de vidro preto sobre estrutura de ferro com detalhe dourado — uma peça sofisticada que vira o centro da sala. Mede 2,40 x 1,20 m (altura 0,78 m). As cadeiras são vendidas à parte.",
     "pricePaid": 6418.28,
     "askingPrice": 5000,
     "refs": [
@@ -182,8 +182,8 @@ const ITEMS = [
   },
   {
     "id": "cadeiras-biju",
-    "title": "8 Cadeiras de Jantar Biju — estofado cinza",
-    "description": "Conjunto com 8 cadeiras Biju: 6 sem braço e 2 com braço (as das pontas). Estrutura de madeira Taeda com pés pretos, assento e encosto estofados em tecido cinza (Brunello 32). Confortáveis e elegantes, combinam com mesa de vidro ou madeira. Vendidas somente no conjunto completo.",
+    "title": "8 Cadeiras de Jantar Artzzi Biju — estofado cinza",
+    "description": "Conjunto com 8 cadeiras de jantar da **Artzzi** (modelo Biju): 6 sem braço e 2 com braço (as das pontas). Estrutura de madeira Taeda com pés pretos, assento e encosto estofados em tecido cinza (Brunello 32). Confortáveis e elegantes, combinam com mesa de vidro ou madeira. Vendidas somente no conjunto completo.",
     "pricePaid": 7388.34,
     "askingPrice": 4000,
     "refs": [],
@@ -194,8 +194,8 @@ const ITEMS = [
   },
   {
     "id": "poltronas-dot",
-    "title": "2 Poltronas Dot — madeira imbuia e pés dourados",
-    "description": "Par de poltronas de design, modelo Dot: casca curva de madeira imbuia clara, assento estofado e pés finos de metal dourado. Um charme pra compor a sala ou um cantinho de leitura. Medem 64 x 60 x 71 cm cada. As duas vão juntas.",
+    "title": "2 Poltronas Artzzi Dot — madeira imbuia e pés dourados",
+    "description": "Par de poltronas de design da **Artzzi**, modelo Dot: casca curva de madeira imbuia clara, assento estofado e pés finos de metal dourado. Um charme pra compor a sala ou um cantinho de leitura. Medem 64 x 60 x 71 cm cada. As duas vão juntas.",
     "pricePaid": 6193.36,
     "askingPrice": 4000,
     "refs": [],
@@ -207,7 +207,7 @@ const ITEMS = [
   {
     "id": "mesas-centro",
     "title": "2 Mesas de Centro Artzzi — formato orgânico",
-    "description": "Dupla de mesas de centro da Artzzi em formato orgânico e alturas diferentes, que se encaixam uma na outra — uma com tampo escuro e a outra clara, com pés finos de metal preto. Modernas e cheias de personalidade. As duas vão juntas.",
+    "description": "Dupla de mesas de centro da **Artzzi** em formato orgânico e alturas diferentes, que se encaixam uma na outra — uma com tampo escuro e a outra clara, com pés finos de metal preto. Modernas e cheias de personalidade. As duas vão juntas.",
     "pricePaid": 17000,
     "askingPrice": 10000,
     "refs": [],
@@ -219,7 +219,7 @@ const ITEMS = [
   {
     "id": "mesa-canto",
     "title": "Mesa de Canto Artzzi — vidro e base preta",
-    "description": "Mesa de canto/apoio da Artzzi com tampo redondo de vidro escuro e base escultural preta de linhas geométricas. Perfeita ao lado do sofá ou da poltrona pra apoiar abajur, livros e a xícara de café.",
+    "description": "Mesa de canto/apoio da **Artzzi** com tampo redondo de vidro escuro e base escultural preta de linhas geométricas. Perfeita ao lado do sofá ou da poltrona pra apoiar abajur, livros e a xícara de café.",
     "pricePaid": 3000,
     "askingPrice": 1700,
     "refs": [],
@@ -425,7 +425,7 @@ function detailHTML(it){
   const main = photos[0] ? '<img id="mainimg" src="'+photos[0]+'" alt="'+esc(it.title)+'" onerror="this.onerror=null;this.src=IMG_FALLBACK">' : '<div class="empty">🛋️</div>';
   const thumbs = photos.length>1 ? '<div class="thumbs">'+photos.map((p,i)=>'<button class="'+(i===0?'on':'')+'" onclick="setMain('+i+',this)"><img src="'+p+'" alt="foto '+(i+1)+'" onerror="this.onerror=null;this.src=IMG_FALLBACK"></button>').join('')+'</div>' : '';
   const from = it.pricePaid>0 ? '<span class="from">'+fmt(it.pricePaid)+'</span>' : '';
-  const desc = it.description ? '<p class="desc">'+esc(it.description)+'</p>' : '';
+  const desc = it.description ? '<p class="desc">'+esc(it.description).replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>')+'</p>' : '';
   const refs = (it.refs&&it.refs.length) ? '<div class="refs"><h4>achei parecido por aí</h4>'+it.refs.map(r=>'<a class="ref-link" href="'+esc(r)+'" target="_blank" rel="noreferrer">🔗 '+esc(r)+'</a>').join('')+'</div>' : '';
   let box;
   if(it.sold){
