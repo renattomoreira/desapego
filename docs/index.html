@@ -69,6 +69,10 @@ body.has-bazar{padding-top:44px}
 .block-h{font-family:'Mulish';font-weight:700;font-size:18px;margin:0 0 14px;color:var(--ink)}
 .block-h.fire{color:#e11d2a;font-size:19px}
 .block-sub{color:var(--muted);font-weight:500;font-size:13px;line-height:1.4;margin:-8px 0 16px}
+.block-deals{border:2px solid #e11d2a;box-shadow:0 2px 12px rgba(225,29,42,.14)}
+@keyframes ctaPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.block-deals .btn-coral{animation:ctaPulse 1.25s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.block-deals .btn-coral{animation:none}}
 .detail{padding:18px 0 60px}
 .back{background:none;border:none;color:var(--green);font-weight:800;cursor:pointer;font-size:15px;padding:6px 0;display:inline-flex;gap:6px;align-items:center}
 .dcols{display:grid;grid-template-columns:1.1fr 1fr;gap:26px;margin-top:10px}
@@ -412,7 +416,7 @@ function listHTML(){
     + '<p class="hero-sub">aqui é peça única: quem faz a melhor oferta leva. como dar o teu lance:</p>'
     + '<ol class="hero-steps"><li><span class="n">1</span> escolha o objeto que você curtiu</li><li><span class="n">2</span> toque em "quero dar um lance" e ajuste a tua oferta</li><li><span class="n">3</span> envie no whatsapp — eu te respondo pra combinar a entrega</li></ol>'
     + '<div class="soldcount-pill">✅ '+soldCount+' de '+total+' já saíram</div></div>';
-  if(topDeals.length) h += '<div class="block"><h2 class="block-h fire">🔥 os maiores descontos</h2><p class="block-sub">as maiores quedas de preço — quem leva, leva muito barato.</p><div class="grid">'+topDeals.map(cardHTML).join('')+'</div></div>';
+  if(topDeals.length) h += '<div class="block block-deals"><h2 class="block-h fire">🔥 os maiores descontos</h2><p class="block-sub">as maiores quedas de preço — quem leva, leva muito barato.</p><div class="grid">'+topDeals.map(cardHTML).join('')+'</div></div>';
   h += '<div class="block"><h2 class="block-h">outros destaques</h2><div class="grid">'+rest.map(cardHTML).join('')+'</div></div>';
   if(soldArr.length) h += '<div class="block"><h2 class="block-h">já saíram ('+soldCount+')</h2><div class="grid">'+soldArr.map(cardHTML).join('')+'</div></div>';
   return h;
